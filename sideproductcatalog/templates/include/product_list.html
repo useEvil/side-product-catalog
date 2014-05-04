@@ -1,0 +1,25 @@
+{% load humanize %}
+          <tr>
+            <td colspan="6">&gt;{{ category.name }}</td>
+          </tr>
+          {% if category.products.count %}
+            <tr>
+              <th>SKU</th>
+              <th>Name</th>
+              <th class="center">Quantity</th>
+              <th class="amount">Price</th>
+              <th class="center">Sale Price</th>
+              <th class="amount">Season</th>
+            </tr>
+            {% for product in category.products.all %}
+            <tr>
+              <td><a href="/product/{{ product.id }}">{{ product.sku }}</a></td>
+              <td>{{ product.name }}</td>
+              <td class="center">{{ product.quantity }}</td>
+              <td class="amount">${{ product.price|floatformat:2|intcomma }}</td>
+              <td class="center">${{ product.sale_price|floatformat:2|intcomma }}</td>
+              <td>{{ product.season }}</td>
+            </tr>
+            {% endfor %}
+          {% endif %}
+

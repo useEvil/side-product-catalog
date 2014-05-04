@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block content %}
+  <div class="col-xs-12 col-sm-9 col-lg-10">
+    <div class="row box-shadow">
+      <div class="col-lg-12">
+        <table class="table table-hover table-striped table-condensed">
+          <tr>
+            <td colspan="3">{{ product.name }}</td>
+          </tr>
+            <tr>
+              <td>Category</td>
+              <td>&nbsp;</td>
+              <td>{{ product.category_breadcrumb|safe }}</td>
+            </tr>
+            <tr>
+              <td>SKU</td>
+              <td>&nbsp;</td>
+              <td>{{ product.sku }}</td>
+            </tr>
+            <tr>
+              <td>Price</td>
+              <td>&nbsp;</td>
+              <td>${{ product.price|floatformat:2|intcomma }}</td>
+            </tr>
+            <tr>
+              <td>Sale Price</td>
+              <td>&nbsp;</td>
+              <td>${{ product.sale_price|floatformat:2|intcomma }}</td>
+            </tr>
+            <tr>
+              <td>Quantity</td>
+              <td>&nbsp;</td>
+              <td>{{ product.quantity }}</td>
+            </tr>
+            <tr>
+              <td>Season</td>
+              <td>&nbsp;</td>
+              <td>{{ product.season }}</td>
+            </tr>
+            <tr>
+              <td>Description</td>
+              <td>&nbsp;</td>
+              <td>{{ product.description }}</th>
+            </tr>
+
+            {% for option in product.options.all %}
+            <tr>
+              <td>Options</td>
+                <td>&nbsp;</td>
+              <td>
+                <select name="options-sku">
+                {% for option_value in option.option_value_list %}
+                  <option value="{{ option_value.2 }}">{{ option_value.0 }}: {{ option_value.1 }}</option>
+                {% endfor %}
+                </select>
+              </td>
+            </tr>
+            {% endfor %}
+        </table>
+      </div><!--/span-->
+    </div><!--/row-->
+  </div><!--/span-->
+{% endblock %}
